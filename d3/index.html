@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3 Graph + Code Highlight</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Left code panel */
+    #code-panel {
+      width: 35%;
+      background: #1e1e1e;
+      color: #ddd;
+      padding: 20px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 34px;
+      border-right: 2px solid #333;
+    }
+
+    .code-line {
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    .highlight {
+      background: #ffeb3b;
+      color: black;
+    }
+
+    /* Right graph panel */
+    #graph {
+      flex: 1;
+    }
+
+    line {
+      stroke: #999;
+      stroke-opacity: 0.6;
+    }
+
+    circle {
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 4px;
+      pointer-events: none;
+      font-size: 22px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Left panel showing code -->
+  <div id="code-panel">
+    <pre>
+<span id="line-1" class="code-line">1: let a = 5;</span>
+<span id="line-2" class="code-line">2: let b = 10;</span>
+<span id="line-3" class="code-line">3: function add(x, y) {</span>
+<span id="line-4" class="code-line">4:   return x + y;</span>
+<span id="line-5" class="code-line">5: }</span>
+    </pre>
+  </div>
+
+  <!-- Graph area -->
+  <div id="graph"></div>
+
+  <div id="tooltip" class="tooltip"></div>
+
+  <script>
+    // Example nodes (each maps to a line number)
+    const nodes = [
+      { id: "A", line: 1, size: 10, color: "red" },
+      { id: "B", line: 2, size: 12, color: "blue" },
+      { id: "C", line: 3, size: 14, color: "green" },
+      { id: "D", line: 4, size: 16, color: "orange" },
+      { id: "E", line: 5, size: 18, color: "purple" }
+    ];
+
+    const links = [
+      { source: "A", target: "B" },
+      { source: "B", target: "C" },
+      { source: "C", target: "D" },
+      { source: "D", target: "E" }
+    ];
+
+    const width = window.innerWidth * 0.65;
+    const height = window.innerHeight;
+
+    const svg = d3.select("#graph")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const tooltip = d3.select("#tooltip");
+
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(120))
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+    const link = svg.selectAll("line")
+      .data(links)
+      .enter().append("line");
+
+    const node = svg.selectAll("circle")
+      .data(nodes)
+      .enter().append("circle")
+      .attr("r", d => d.size)
+      .attr("fill", d => d.color)
+      .on("mouseover", (event, d) => {
+        // Tooltip
+        tooltip.style("opacity", 1)
+               .html(`<strong>Node:</strong> ${d.id}<br><strong>Line:</strong> ${d.line}`);
+
+        // Highlight code line
+        d3.selectAll(".code-line").classed("highlight", false); // clear
+        d3.select("#line-" + d.line).classed("highlight", true);
+      })
+      .on("mousemove", event => {
+        tooltip.style("left", (event.pageX + 10) + "px")
+               .style("top", (event.pageY + 10) + "px");
+      })
+      .on("mouseout", () => {
+        tooltip.style("opacity", 0);
+        d3.selectAll(".code-line").classed("highlight", false);
+      })
+      .call(d3.drag()
+        .on("start", dragstart)
+        .on("drag", dragdrag)
+        .on("end", dragend)
+      );
+
+    simulation.on("tick", () => {
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+    });
+
+    function dragstart(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragdrag(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragend(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+  </script>
+
+</body>
+</html>
+

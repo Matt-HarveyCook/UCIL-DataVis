@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3 Basic Graph</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    line {
+      stroke: #999;
+      stroke-opacity: 0.6;
+    }
+
+    circle {
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+  </style>
+</head>
+<body>
+    <style>
+  .tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+</style>
+
+<div id="tooltip" class="tooltip"></div>
+  <script>
+    // --- Data setup ---
+    const nodes = [
+{'id': '121', 'size': 0.9689922480620154, 'color': {'r': 0.0, 'g': 255.0, 'b': 0, 'opacity': 1}} ,
+{'id': '122', 'size': 0.9689922480620154, 'color': {'r': 1.1391351178753981, 'g': 253.86086488212462, 'b': 0, 'opacity': 1}} ,
+{'id': '123', 'size': 0.9689922480620154, 'color': {'r': 0.6779077592049038, 'g': 254.3220922407951, 'b': 0, 'opacity': 1}} ,
+{'id': '124', 'size': 0.9689922480620154, 'color': {'r': 0.36459760262396496, 'g': 254.63540239737605, 'b': 0, 'opacity': 1}} ,
+{'id': '125', 'size': 0.9689922480620154, 'color': {'r': 0.29695528609331756, 'g': 254.70304471390668, 'b': 0, 'opacity': 1}} ,
+{'id': '141', 'size': 0.9689922480620154, 'color': {'r': 0.31553975160690495, 'g': 254.6844602483931, 'b': 0, 'opacity': 1}} ,
+{'id': '142', 'size': 8.720930232558139, 'color': {'r': 1.8296795023760448, 'g': 253.17032049762395, 'b': 0, 'opacity': 1}} ,
+{'id': '143', 'size': 108.52713178294573, 'color': {'r': 30.96926961150979, 'g': 224.0307303884902, 'b': 0, 'opacity': 1}} ,
+{'id': '144', 'size': 100.7751937984496, 'color': {'r': 23.570640428430924, 'g': 231.42935957156908, 'b': 0, 'opacity': 1}} ,
+{'id': '126', 'size': 197.67441860465115, 'color': {'r': 65.792640981674, 'g': 189.207359018326, 'b': 0, 'opacity': 1}} ,
+{'id': '128', 'size': 193.79844961240312, 'color': {'r': 41.570847934349764, 'g': 213.42915206565024, 'b': 0, 'opacity': 1}} ,
+{'id': '129', 'size': 128.87596899224806, 'color': {'r': 28.97791810401256, 'g': 226.02208189598744, 'b': 0, 'opacity': 1}} ,
+{'id': '130', 'size': 64.92248062015504, 'color': {'r': 13.237761432404318, 'g': 241.7622385675957, 'b': 0, 'opacity': 1}} ,
+{'id': '133', 'size': 24.22480620155039, 'color': {'r': 6.132386867385982, 'g': 248.86761313261403, 'b': 0, 'opacity': 1}} ,
+{'id': '135', 'size': 24.22480620155039, 'color': {'r': 6.827009152795248, 'g': 248.17299084720474, 'b': 0, 'opacity': 1}} ,
+{'id': '127', 'size': 3.875968992248062, 'color': {'r': 0.8009248873113219, 'g': 254.1990751126887, 'b': 0, 'opacity': 1}} ,
+{'id': '136', 'size': 24.22480620155039, 'color': {'r': 5.356352589433673, 'g': 249.64364741056633, 'b': 0, 'opacity': 1}} ,
+{'id': '137', 'size': 24.22480620155039, 'color': {'r': 5.312870754115269, 'g': 249.68712924588473, 'b': 0, 'opacity': 1}} ,
+{'id': '138', 'size': 24.22480620155039, 'color': {'r': 5.712037220310415, 'g': 249.2879627796896, 'b': 0, 'opacity': 1}} ,
+{'id': '139', 'size': 24.22480620155039, 'color': {'r': 5.928710860399021, 'g': 249.07128913960096, 'b': 0, 'opacity': 1}} ,
+{'id': '131', 'size': 40.697674418604656, 'color': {'r': 9.971995582327038, 'g': 245.02800441767297, 'b': 0, 'opacity': 1}} ,
+{'id': '145', 'size': 0.9689922480620154, 'color': {'r': 0.21481857376014882, 'g': 254.78518142623983, 'b': 0, 'opacity': 1}} ,
+    ];
+
+    const links = [
+        {'source': '121', 'target': '122', 'length': 9.699321047526674} ,
+{'source': '122', 'target': '123', 'length': 9.699321047526674} ,
+{'source': '123', 'target': '124', 'length': 9.699321047526674} ,
+{'source': '124', 'target': '125', 'length': 9.699321047526674} ,
+{'source': '125', 'target': '141', 'length': 9.699321047526674} ,
+{'source': '141', 'target': '142', 'length': 9.699321047526674} ,
+{'source': '142', 'target': '143', 'length': 77.59456838021339} ,
+{'source': '143', 'target': '144', 'length': 1008.729388942774} ,
+{'source': '144', 'target': '126', 'length': 1008.729388942774} ,
+{'source': '126', 'target': '128', 'length': 1939.8642095053344} ,
+{'source': '128', 'target': '129', 'length': 1290.0096993210475} ,
+{'source': '129', 'target': '143', 'length': 766.2463627546072} ,
+{'source': '128', 'target': '130', 'length': 649.8545101842872} ,
+{'source': '130', 'target': '133', 'length': 242.4830261881668} ,
+{'source': '133', 'target': '135', 'length': 242.4830261881668} ,
+{'source': '135', 'target': '126', 'length': 242.4830261881668} ,
+{'source': '126', 'target': '127', 'length': 38.797284190106694} ,
+{'source': '127', 'target': '136', 'length': 19.398642095053347} ,
+{'source': '136', 'target': '126', 'length': 242.4830261881668} ,
+{'source': '129', 'target': '137', 'length': 116.39185257032008} ,
+{'source': '137', 'target': '126', 'length': 242.4830261881668} ,
+{'source': '129', 'target': '138', 'length': 145.48981571290008} ,
+{'source': '138', 'target': '126', 'length': 242.4830261881668} ,
+{'source': '129', 'target': '139', 'length': 145.48981571290008} ,
+{'source': '139', 'target': '143', 'length': 58.19592628516004} ,
+{'source': '130', 'target': '131', 'length': 407.3714839961203} ,
+{'source': '131', 'target': '136', 'length': 77.59456838021339} ,
+{'source': '129', 'target': '136', 'length': 116.39185257032008} ,
+{'source': '131', 'target': '138', 'length': 96.99321047526674} ,
+{'source': '139', 'target': '139', 'length': 77.59456838021339} ,
+{'source': '139', 'target': '137', 'length': 77.59456838021339} ,
+{'source': '143', 'target': '142', 'length': 77.59456838021339} ,
+{'source': '131', 'target': '143', 'length': 184.2870999030068} ,
+{'source': '131', 'target': '137', 'length': 29.09796314258002} ,
+{'source': '139', 'target': '136', 'length': 29.09796314258002} ,
+{'source': '131', 'target': '139', 'length': 19.398642095053347} ,
+{'source': '127', 'target': '137', 'length': 19.398642095053347} ,
+{'source': '142', 'target': '145', 'length': 9.699321047526674} ,
+    ];
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const svg = d3.select("body")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // --- Create simulation ---
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links)
+        .id(d => d.id)
+        .distance(d => d.length)) // custom link length
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+    // --- Draw links ---
+    const link = svg.selectAll("line")
+      .data(links)
+      .enter().append("line");
+
+const tooltip = d3.select("#tooltip");
+
+const node = svg.selectAll("circle")
+  .data(nodes)
+  .enter().append("circle")
+  .attr("r", d => d.size)
+  .attr("fill", d => {
+    if (typeof d.color === "object") {
+      return `rgba(${d.color.r}, ${d.color.g}, ${d.color.b}, ${d.color.opacity})`;
+    }
+    return d.color;
+  })
+  .on("mouseover", (event, d) => {
+    tooltip
+      .style("opacity", 1)
+      .html(`
+        <strong>ID:</strong> ${d.id}<br>
+        <strong>Size:</strong> ${d.size}<br>
+        <strong>Color:</strong> rgb(${d.color.r.toFixed(0)}, ${d.color.g.toFixed(0)}, ${d.color.b.toFixed(0)})
+      `);
+  })
+  .on("mousemove", (event) => {
+    tooltip
+      .style("left", (event.pageX + 12) + "px")
+      .style("top", (event.pageY + 12) + "px");
+  })
+  .on("mouseout", () => {
+    tooltip.style("opacity", 0);
+  })
+  .call(
+    d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended)
+  );
+
+    const label = svg.selectAll("text")
+      .data(nodes)
+      .enter().append("text")
+      .text(d => d.id)
+      .attr("font-size", 12)
+      .attr("dx", 10)
+      .attr("dy", 4);
+
+    // --- Simulation tick ---
+    simulation.on("tick", () => {
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+
+      label
+        .attr("x", d => d.x)
+        .attr("y", d => d.y);
+    });
+
+    // --- Drag behavior ---
+    function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+  </script>
+</body>
+</html>
+

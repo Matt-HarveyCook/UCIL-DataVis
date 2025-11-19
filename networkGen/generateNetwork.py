@@ -107,14 +107,14 @@ def spreadOutPoints(execPercent, i):
 
 def percentToRgb(p):
     c1 = {}
-    c1['r'] = 247 
-    c1['g'] = 169
-    c1['b'] = 168
+    c1['r'] = 167 
+    c1['g'] = 176
+    c1['b'] = 202
 
     c2 = {}
-    c2['r'] = 60 
-    c2['g'] = 0 
-    c2['b'] = 0
+    c2['r'] = 54 
+    c2['g'] = 52 
+    c2['b'] = 87
 
     return {
         'r': int(c1['r'] * (1 - p) + c2['r'] * p),

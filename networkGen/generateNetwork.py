@@ -28,7 +28,7 @@ def trace_func(frame, event, arg):
 
         execution_log.append({
             "file": filename,
-            "line_no": lineno-firstLine,
+            "line_no": (lineno-firstLine)+1,
             "code": line,
             "duration_since_last": duration,
         })

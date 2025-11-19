@@ -23,6 +23,11 @@
       font-size: 34px;
       border-right: 2px solid #333;
     }
+    .node-highlight {
+  stroke: yellow;
+  stroke-width: 40;
+}
+
 
     .code-line {
       padding: 3px 6px;
@@ -204,7 +209,7 @@ groups.forEach((nodesOfSize, size) => {
       .on("mouseover", (event, d) => {
         // Tooltip
         tooltip.style("opacity", 1)
-               .html(`<strong>Node:</strong> ${d.id}<br><strong>Line:</strong> ${d.line}`);
+               .html(`<strong>Rutime(%):</strong> ${d.runtimePercent}<br><strong>Line:</strong> ${d.line}`);
 
         // Highlight code line
         d3.selectAll(".code-line").classed("highlight", false); // clear
@@ -223,6 +228,30 @@ groups.forEach((nodesOfSize, size) => {
         .on("drag", dragdrag)
         .on("end", dragend)
       );
+
+    // Map line number → node DOM element
+const lineToNode = new Map();
+node.each(function(d) {
+  lineToNode.set(d.line, d3.select(this));
+});
+
+    // Add hover → highlight node for each code line
+d3.selectAll(".code-line")
+  .on("mouseover", function(event) {
+      const lineNum = +this.id.replace("line-", "");
+      const n = lineToNode.get(lineNum);
+      if (n) {
+        n.classed("node-highlight", true);
+      }
+  })
+  .on("mouseout", function(event) {
+      const lineNum = +this.id.replace("line-", "");
+      const n = lineToNode.get(lineNum);
+      if (n) {
+        n.classed("node-highlight", false);
+      }
+  });
+
 
     simulation.on("tick", () => {
       link

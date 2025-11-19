@@ -4,133 +4,155 @@
       "id": "1",
       "line": 1,
       "size": 10.968992248062015,
+      "runtimePercent": "0.00",
       "color": "rgba(247,169,168,1)"
     },
     {
       "id": "2",
       "line": 2,
       "size": 10.968992248062015,
-      "color": "rgba(243,166,165,1)"
+      "runtimePercent": "0.45",
+      "color": "rgba(243,165,164,1)"
     },
     {
       "id": "3",
       "line": 3,
       "size": 10.968992248062015,
+      "runtimePercent": "0.23",
       "color": "rgba(245,167,166,1)"
     },
     {
       "id": "4",
       "line": 4,
       "size": 10.968992248062015,
-      "color": "rgba(246,168,167,1)"
+      "runtimePercent": "0.14",
+      "color": "rgba(245,168,167,1)"
     },
     {
       "id": "5",
       "line": 5,
       "size": 10.968992248062015,
+      "runtimePercent": "0.11",
       "color": "rgba(246,168,167,1)"
     },
     {
       "id": "18",
       "line": 18,
       "size": 10.968992248062015,
+      "runtimePercent": "0.12",
       "color": "rgba(246,168,167,1)"
     },
     {
       "id": "19",
       "line": 19,
       "size": 18.72093023255814,
-      "color": "rgba(241,164,163,1)"
+      "runtimePercent": "1.25",
+      "color": "rgba(236,159,158,1)"
     },
     {
       "id": "20",
       "line": 20,
       "size": 118.52713178294573,
-      "color": "rgba(162,92,91,1)"
+      "runtimePercent": "12.47",
+      "color": "rgba(146,78,77,1)"
     },
     {
       "id": "21",
       "line": 21,
       "size": 110.7751937984496,
-      "color": "rgba(176,105,104,1)"
+      "runtimePercent": "9.17",
+      "color": "rgba(172,102,101,1)"
     },
     {
       "id": "6",
       "line": 6,
       "size": 207.67441860465115,
+      "runtimePercent": "23.18",
       "color": "rgba(60,0,0,1)"
     },
     {
       "id": "8",
       "line": 8,
       "size": 203.79844961240312,
-      "color": "rgba(116,50,50,1)"
+      "runtimePercent": "18.47",
+      "color": "rgba(98,34,34,1)"
     },
     {
       "id": "9",
       "line": 9,
       "size": 138.87596899224806,
-      "color": "rgba(172,101,100,1)"
+      "runtimePercent": "10.82",
+      "color": "rgba(159,90,89,1)"
     },
     {
       "id": "10",
       "line": 10,
       "size": 74.92248062015504,
-      "color": "rgba(209,135,134,1)"
+      "runtimePercent": "5.56",
+      "color": "rgba(202,128,127,1)"
     },
     {
       "id": "12",
       "line": 12,
       "size": 34.22480620155039,
-      "color": "rgba(232,155,154,1)"
+      "runtimePercent": "2.20",
+      "color": "rgba(229,152,152,1)"
     },
     {
       "id": "13",
       "line": 13,
       "size": 34.22480620155039,
-      "color": "rgba(232,156,155,1)"
+      "runtimePercent": "2.04",
+      "color": "rgba(230,154,153,1)"
     },
     {
       "id": "7",
       "line": 7,
       "size": 13.875968992248062,
+      "runtimePercent": "0.33",
       "color": "rgba(244,166,165,1)"
     },
     {
       "id": "14",
       "line": 14,
       "size": 34.22480620155039,
-      "color": "rgba(230,154,153,1)"
+      "runtimePercent": "2.45",
+      "color": "rgba(227,151,150,1)"
     },
     {
       "id": "15",
       "line": 15,
       "size": 34.22480620155039,
-      "color": "rgba(231,154,153,1)"
+      "runtimePercent": "2.36",
+      "color": "rgba(227,151,150,1)"
     },
     {
       "id": "16",
       "line": 16,
       "size": 34.22480620155039,
-      "color": "rgba(231,154,153,1)"
+      "runtimePercent": "2.32",
+      "color": "rgba(228,152,151,1)"
     },
     {
       "id": "17",
       "line": 17,
       "size": 34.22480620155039,
-      "color": "rgba(228,152,151,1)"
+      "runtimePercent": "2.55",
+      "color": "rgba(226,150,149,1)"
     },
     {
       "id": "11",
       "line": 11,
       "size": 50.697674418604656,
-      "color": "rgba(221,145,144,1)"
+      "runtimePercent": "3.70",
+      "color": "rgba(217,142,141,1)"
     },
     {
       "id": "22",
       "line": 22,
       "size": 10.968992248062015,
-      "color": "rgba(245,167,166,1)"
+      "runtimePercent": "0.08",
+      "color": "rgba(246,168,167,1)"
     }
   ],
   "links": [

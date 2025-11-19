@@ -141,6 +141,7 @@ def generateNodes(execPercent, execCount):
             'id': str(lineNum),
             'line': int(lineNum),   # IMPORTANT for highlighting
             'size': (1000 * execCount[int(lineNum)])+10,
+            'runtimePercent': "{:.2f}".format(100*execPercent[lineNum]),
             'color': f"rgba({rgb['r']},{rgb['g']},{rgb['b']},{rgb['opacity']})"
         }
         res.append(currNode)

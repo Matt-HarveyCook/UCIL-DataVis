@@ -70,16 +70,19 @@ def calculateExecutionCount(exec_log):
 
 def calculateConnections(exec_log):
     linePairCount = defaultdict(int)
+    singleLineCount = defaultdict(int)
     totalCount = 0
     for i in range(1, len(exec_log)):
         lineA = exec_log[i-1]['line_no']
         lineB = exec_log[i]['line_no']
         linePairCount[(lineA, lineB)] += 1
+        singleLineCount[lineA] += 1
         totalCount += 1
 
     for k in linePairCount:
-        linePairCount[k] /= totalCount
+        linePairCount[k] /= singleLineCount[k[0]]
 
+    print('linePairCount', linePairCount)
     return linePairCount
     print(linePairCount)
 
@@ -155,7 +158,8 @@ def generateConnections(connections, execCount):
         currConnection['source'] = str(sourceLineNum)
         currConnection['target'] = str(targetLineNum)
         spreadDist = spreadOutPoints(connections, i)
-        currConnection['length'] = (1000 * (spreadDist)) + maxNodeSize + 40
+        padding = 200 if spreadDist>0.9 else 0
+        currConnection['length'] = (600 * (1-spreadDist)) + maxNodeSize + padding
         # currConnection['length'] = (6000 * connections[pair]) + maxNodeSize
         res.append(currConnection)
     return res

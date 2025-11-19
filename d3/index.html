@@ -134,6 +134,11 @@
     const tooltip = d3.select("#tooltip");
 function buildGraph(nodes, links) {
 
+    nodes.forEach(n => {
+  n.x = Math.random() * width;
+  n.y = Math.random() * height;
+});
+
     const simulation = d3.forceSimulation(nodes)
         .force("link", d3.forceLink(links)
             .id(d => d.id)

@@ -229,6 +229,40 @@ groups.forEach((nodesOfSize, size) => {
         .on("end", dragend)
       );
 
+    function autoZoomToFit() {
+  // Compute bounds of all nodes
+  const minX = d3.min(nodes, d => d.x);
+  const maxX = d3.max(nodes, d => d.x);
+  const minY = d3.min(nodes, d => d.y);
+  const maxY = d3.max(nodes, d => d.y);
+
+  const nodeWidth = maxX - minX;
+  const nodeHeight = maxY - minY;
+
+  // Padding around nodes
+  const padding = 300;
+
+  // Compute required scale
+  const scale = Math.min(
+    (width - padding) / nodeWidth,
+    (height - padding) / nodeHeight,
+    1.2                       // do not zoom in more than normal
+  );
+
+  // Compute center offset
+  const translateX = width / 2 - (minX + nodeWidth / 2) * scale;
+  const translateY = height / 2 - (minY + nodeHeight / 2) * scale;
+
+  // Smooth animation
+  svg.transition()
+    .duration(2000)
+    .call(
+      zoom.transform,
+      d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+    );
+}
+setTimeout(() => autoZoomToFit(), 50);
+
     // Map line number → node DOM element
 const lineToNode = new Map();
 node.each(function(d) {

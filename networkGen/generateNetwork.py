@@ -137,19 +137,24 @@ def generateNodes(execPercent, execCount):
         currNode = {
             'id': str(lineNum),
             'line': int(lineNum),   # IMPORTANT for highlighting
-            'size': 1000 * execCount[int(lineNum)],
+            'size': (1000 * execCount[int(lineNum)])+10,
             'color': f"rgba({rgb['r']},{rgb['g']},{rgb['b']},{rgb['opacity']})"
         }
         res.append(currNode)
     return res
 
-def generateConnections(connections):
+def generateConnections(connections, execCount):
     res = []
-    for pair in connections:
+    for i, pair in enumerate(connections):
+        sourceLineNum = int(pair[0])
+        targetLineNum = int(pair[1])
+        sourceSize = execCount[sourceLineNum] * 1000
+        targetSize = execCount[targetLineNum] * 1000
+        maxNodeSize = max(sourceSize, targetSize)
         currConnection = {}
-        currConnection['source'] = str(pair[0])
-        currConnection['target'] = str(pair[1])
-        currConnection['length'] = 10000 * connections[pair]
+        currConnection['source'] = str(sourceLineNum)
+        currConnection['target'] = str(targetLineNum)
+        currConnection['length'] = (5000 * connections[pair]) + maxNodeSize
         res.append(currConnection)
     return res
 
@@ -211,7 +216,7 @@ if __name__ == "__main__":
     connectionDict = calculateConnections(execution_log)
 
     nodes = generateNodes(execPercent, execCount)
-    connections = generateConnections(connectionDict)
+    connections = generateConnections(connectionDict, execCount)
     export_to_json(nodes, connections)
 
 

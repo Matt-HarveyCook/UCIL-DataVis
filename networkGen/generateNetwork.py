@@ -154,7 +154,7 @@ def generateConnections(connections, execCount):
         currConnection = {}
         currConnection['source'] = str(sourceLineNum)
         currConnection['target'] = str(targetLineNum)
-        currConnection['length'] = (5000 * connections[pair]) + maxNodeSize
+        currConnection['length'] = (6000 * connections[pair]) + maxNodeSize
         res.append(currConnection)
     return res
 

@@ -118,6 +118,19 @@
       .attr("width", width)
       .attr("height", height);
 
+    svg.append("defs").append("marker")
+    .attr("id", "arrow")
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 50)       // adjust depending on node radius
+    .attr("refY", 0)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+    .append("path")
+    .attr("d", "M0,-5L10,0L0,5")
+    .attr("fill", "#999");
+
+
     const tooltip = d3.select("#tooltip");
 function buildGraph(nodes, links) {
 
@@ -127,12 +140,22 @@ function buildGraph(nodes, links) {
             .distance(d => d.length)
         )
         .force("charge", d3.forceManyBody().strength(-200))
-        .force("center", d3.forceCenter(width / 2, height / 2));
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collision", d3.forceCollide().radius(d => d.size + 4)); // ← add this
+
 
 
     const link = svg.selectAll("line")
+        .data(links)
+        .enter().append("line");
+    
+    const arrows = svg.selectAll(".arrow")
       .data(links)
-      .enter().append("line");
+      .enter()
+      .append("path")
+      .attr("class", "arrow")
+      .attr("fill", "#999");
+
 
     const node = svg.selectAll("circle")
       .data(nodes)
@@ -172,6 +195,51 @@ function buildGraph(nodes, links) {
       node
         .attr("cx", d => d.x)
         .attr("cy", d => d.y);
+          arrows.attr("d", d => {
+
+    const src = d.source;
+    const tgt = d.target;
+
+    // Vector from src → tgt
+    const dx = tgt.x - src.x;
+    const dy = tgt.y - src.y;
+    const len = Math.sqrt(dx*dx + dy*dy);
+
+    // Normalize
+    const ux = dx / len;
+    const uy = dy / len;
+
+    // Pull arrowhead back so its tip sits exactly at the target circle edge
+    // (target.radius = target.size)
+    const arrowTipX = tgt.x - ux * tgt.size;
+    const arrowTipY = tgt.y - uy * tgt.size;
+
+    // Arrowhead size (constant visually)
+    const aw = 7; // width
+    const ah = 10; // length
+
+    // Base of arrow
+    const baseX = arrowTipX - ux * ah;
+    const baseY = arrowTipY - uy * ah;
+
+    // Perpendicular vector
+    const px = -uy;
+    const py = ux;
+
+    // Triangle corners
+    const leftX = baseX + px * aw/2;
+    const leftY = baseY + py * aw/2;
+
+    const rightX = baseX - px * aw/2;
+    const rightY = baseY - py * aw/2;
+
+    return `
+      M ${arrowTipX} ${arrowTipY}
+      L ${leftX} ${leftY}
+      L ${rightX} ${rightY}
+      Z
+    `;
+  });
     });
 
     function dragstart(event, d) {

@@ -117,6 +117,16 @@
       .append("svg")
       .attr("width", width)
       .attr("height", height);
+    
+    const container = svg.append("g");
+    const zoom = d3.zoom()
+  .scaleExtent([0.1, 4])   // min/max zoom
+  .on("zoom", (event) => {
+    container.attr("transform", event.transform);
+  });
+
+svg.call(zoom);
+
 
     svg.append("defs").append("marker")
     .attr("id", "arrow")
@@ -150,11 +160,11 @@ function buildGraph(nodes, links) {
 
 
 
-    const link = svg.selectAll("line")
+    const link = container.selectAll("line")
         .data(links)
         .enter().append("line");
     
-    const arrows = svg.selectAll(".arrow")
+    const arrows = container.selectAll(".arrow")
       .data(links)
       .enter()
       .append("path")
@@ -162,7 +172,7 @@ function buildGraph(nodes, links) {
       .attr("fill", "#999");
 
 
-    const node = svg.selectAll("circle")
+    const node = container.selectAll("circle")
       .data(nodes)
       .enter().append("circle")
       .attr("r", d => d.size)

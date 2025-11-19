@@ -154,7 +154,9 @@ def generateConnections(connections, execCount):
         currConnection = {}
         currConnection['source'] = str(sourceLineNum)
         currConnection['target'] = str(targetLineNum)
-        currConnection['length'] = (6000 * connections[pair]) + maxNodeSize
+        spreadDist = spreadOutPoints(connections, i)
+        currConnection['length'] = (1000 * (spreadDist)) + maxNodeSize + 40
+        # currConnection['length'] = (6000 * connections[pair]) + maxNodeSize
         res.append(currConnection)
     return res
 

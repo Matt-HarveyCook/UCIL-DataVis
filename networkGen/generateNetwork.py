@@ -176,7 +176,7 @@ def displayConnections(connections):
     for link in connections:
         print(link, ',')
 
-def export_to_json(nodes, connections, filename="../d3/graph_data.json"):
+def export_to_json(nodes, connections, filename="../graph_data.json"):
     displayNodes(nodes)
     displayConnections(connections)
     data = {

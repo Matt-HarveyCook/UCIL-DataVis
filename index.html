@@ -24,7 +24,7 @@
       border-right: 2px solid #333;
     }
     .node-highlight {
-  stroke: yellow;
+  stroke: #FFEF00;
   stroke-width: 40;
 }
 
@@ -35,7 +35,7 @@
     }
 
     .highlight {
-      background: #ffeb3b;
+      background: #FFEF00;
       color: black;
     }
 
@@ -240,7 +240,7 @@ groups.forEach((nodesOfSize, size) => {
   const nodeHeight = maxY - minY;
 
   // Padding around nodes
-  const padding = 300;
+  const padding = 400;
 
   // Compute required scale
   const scale = Math.min(
@@ -255,7 +255,7 @@ groups.forEach((nodesOfSize, size) => {
 
   // Smooth animation
   svg.transition()
-    .duration(2000)
+    .duration(3000)
     .call(
       zoom.transform,
       d3.zoomIdentity.translate(translateX, translateY).scale(scale)

@@ -144,9 +144,33 @@ svg.call(zoom);
     const tooltip = d3.select("#tooltip");
 function buildGraph(nodes, links) {
 
-    nodes.forEach(n => {
-  n.x = Math.random() * width;
-  n.y = Math.random() * height;
+    // 1. Group nodes by size
+const groups = d3.group(nodes, d => d.size);
+
+// 2. Precompute cluster centers based on sorted unique sizes
+const uniqueSizes = Array.from(groups.keys()).sort((a,b) => a - b);
+const clusterCenters = new Map();
+
+const clusterSpacing = 180;     // distance between groups
+const centerX = width / 2;
+const centerY = height / 2;
+
+// Place clusters horizontally
+uniqueSizes.forEach((size, i) => {
+  const x = centerX + (i - uniqueSizes.length / 2) * clusterSpacing;
+
+  const y = centerY + (i - uniqueSizes.length / 2) * clusterSpacing;
+  <!-- const y = centerY; -->
+  clusterCenters.set(size, { x, y });
+});
+
+// 3. Assign each node an initial position near its cluster center  
+groups.forEach((nodesOfSize, size) => {
+  const c = clusterCenters.get(size);
+  nodesOfSize.forEach(n => {
+    n.x = c.x + (Math.random() - 0.5) * 40;  // small jitter
+    n.y = c.y + (Math.random() - 0.5) * 40;
+  });
 });
 
     const simulation = d3.forceSimulation(nodes)

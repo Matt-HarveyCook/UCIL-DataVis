@@ -68,11 +68,28 @@
   <!-- Left panel showing code -->
   <div id="code-panel">
     <pre>
-<span id="line-1" class="code-line">1: let a = 5;</span>
-<span id="line-2" class="code-line">2: let b = 10;</span>
-<span id="line-3" class="code-line">3: function add(x, y) {</span>
-<span id="line-4" class="code-line">4:   return x + y;</span>
-<span id="line-5" class="code-line">5: }</span>
+    <span id="line-1" class="code-line">grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0]]</span>
+    <span id="line-2" class="code-line">seen = set()</span>
+    <span id="line-3" class="code-line">ROW = len(grid)</span>
+    <span id="line-4" class="code-line">COL = len(grid[0])</span>
+    <span id="line-5" class="code-line">def dfs(r, c):</span>
+    <span id="line-6" class="code-line">    if r < 0 or r >= ROW or c < 0 or c >= COL:</span>
+    <span id="line-7" class="code-line">        return 0</span>
+    <span id="line-8" class="code-line">    if grid[r][c] == 0:</span>
+    <span id="line-9" class="code-line">        return 0</span>
+    <span id="line-10" class="code-line">   if (r,c) in seen:</span>
+    <span id="line-11" class="code-line">       return 0</span>
+    <span id="line-12" class="code-line">   seen.add((r,c))</span>
+    <span id="line-13" class="code-line">   up = dfs(r-1, c)</span>
+    <span id="line-14" class="code-line">   down = dfs(r+1, c)</span>
+    <span id="line-15" class="code-line">   left = dfs(r, c-1)</span>
+    <span id="line-16" class="code-line">   right = dfs(r, c+1)</span>
+    <span id="line-17" class="code-line">   return up + down + left + right + 1</span>
+    <span id="line-18" class="code-line">res = 0</span>
+    <span id="line-19" class="code-line">for r in range(ROW):</span>
+    <span id="line-20" class="code-line">   for c in range(COL):</span>
+    <span id="line-21" class="code-line">       res = max(res, dfs(r,c))</span>
+    <span id="line-22" class="code-line">return res</span>
     </pre>
   </div>
 
@@ -83,20 +100,15 @@
 
   <script>
     // Example nodes (each maps to a line number)
-    const nodes = [
-      { id: "A", line: 1, size: 10, color: "red" },
-      { id: "B", line: 2, size: 12, color: "blue" },
-      { id: "C", line: 3, size: 14, color: "green" },
-      { id: "D", line: 4, size: 16, color: "orange" },
-      { id: "E", line: 5, size: 18, color: "purple" }
-    ];
+      <!-- fetch("graph_data.json") -->
+    fetch("graph_data.json?v=" + Date.now())
+  .then(response => response.json())
+  .then(data => {
+      const nodes = data.nodes;
+      const links = data.links;
 
-    const links = [
-      { source: "A", target: "B" },
-      { source: "B", target: "C" },
-      { source: "C", target: "D" },
-      { source: "D", target: "E" }
-    ];
+      buildGraph(nodes, links);
+  });
 
     const width = window.innerWidth * 0.65;
     const height = window.innerHeight;
@@ -107,11 +119,16 @@
       .attr("height", height);
 
     const tooltip = d3.select("#tooltip");
+function buildGraph(nodes, links) {
 
     const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(d => d.id).distance(120))
-      .force("charge", d3.forceManyBody().strength(-200))
-      .force("center", d3.forceCenter(width / 2, height / 2));
+        .force("link", d3.forceLink(links)
+            .id(d => d.id)
+            .distance(d => d.length)
+        )
+        .force("charge", d3.forceManyBody().strength(-200))
+        .force("center", d3.forceCenter(width / 2, height / 2));
+
 
     const link = svg.selectAll("line")
       .data(links)
@@ -173,6 +190,7 @@
       d.fx = null;
       d.fy = null;
     }
+}
   </script>
 
 </body>

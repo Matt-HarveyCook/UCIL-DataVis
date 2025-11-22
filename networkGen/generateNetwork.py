@@ -177,7 +177,7 @@ def displayConnections(connections):
     for link in connections:
         print(link, ',')
 
-def export_to_json(nodes, connections, filename="../graph_data.json"):
+def export_to_json(nodes, connections, filename="../numeric_data.json"):
     displayNodes(nodes)
     displayConnections(connections)
     data = {
@@ -190,32 +190,34 @@ def export_to_json(nodes, connections, filename="../graph_data.json"):
 
     print(f"[OK] Exported graph data to {filename}")
 
-# Example code to trace
+import random
+A=[[random.randint(1,9) for _ in range(4)] for _ in range(4)]
+B=[[random.randint(1,9) for _ in range(4)] for _ in range(4)]
+
 def main():
-    grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
-    seen = set()
-    ROW = len(grid)
-    COL = len(grid[0])
-    def dfs(r, c):
-        if r < 0 or r >= ROW or c < 0 or c >= COL:
-            return 0
-        if grid[r][c] == 0:
-            return 0
-        if (r,c) in seen:
-            return 0
-        seen.add((r,c))
-        up = dfs(r-1, c)
-        down = dfs(r+1, c)
-        left = dfs(r, c-1)
-        right = dfs(r, c+1)
-        return up + down + left + right + 1
-    res = 0
-    for r in range(ROW):
-        for c in range(COL):
-            res = max(res, dfs(r,c))
-    return res
+    C=[[0]*4 for _ in range(4)]
+    for i in range(4):
+        for j in range(4):
+            s=0
+            for k in range(4):
+                s+=A[i][k]*B[k][j]
+            C[i][j]=s
 
+    D=[[0]*4 for _ in range(4)]
+    for i in range(4):
+        for j in range(4):
+            t=0
+            for k in range(4):
+                t+=C[i][k]*A[k][j]
+            D[i][j]=t
 
+    E=[[0]*4 for _ in range(4)]
+    for i in range(4):
+        for j in range(4):
+            u=D[i][j]
+            for k in range(4):
+                u+=B[j][k]
+            E[i][j]=u
 
 if __name__ == "__main__":
     run_with_trace(main)

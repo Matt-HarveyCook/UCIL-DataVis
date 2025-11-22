@@ -1,0 +1,182 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "line": 1,
+      "size": 15.494505494505495,
+      "runtimePercent": "0.00",
+      "execCount": "0.55",
+      "color": "rgba(167,176,202,1)"
+    },
+    {
+      "id": "2",
+      "line": 2,
+      "size": 15.494505494505495,
+      "runtimePercent": "2.17",
+      "execCount": "0.55",
+      "color": "rgba(157,165,192,1)"
+    },
+    {
+      "id": "3",
+      "line": 3,
+      "size": 53.956043956043956,
+      "runtimePercent": "6.63",
+      "execCount": "4.40",
+      "color": "rgba(138,144,172,1)"
+    },
+    {
+      "id": "4",
+      "line": 4,
+      "size": 53.956043956043956,
+      "runtimePercent": "3.57",
+      "execCount": "4.40",
+      "color": "rgba(151,159,186,1)"
+    },
+    {
+      "id": "5",
+      "line": 5,
+      "size": 48.46153846153847,
+      "runtimePercent": "3.13",
+      "execCount": "3.85",
+      "color": "rgba(153,161,188,1)"
+    },
+    {
+      "id": "6",
+      "line": 6,
+      "size": 59.450549450549445,
+      "runtimePercent": "3.86",
+      "execCount": "4.95",
+      "color": "rgba(150,157,184,1)"
+    },
+    {
+      "id": "7",
+      "line": 7,
+      "size": 53.956043956043956,
+      "runtimePercent": "3.47",
+      "execCount": "4.40",
+      "color": "rgba(151,159,186,1)"
+    },
+    {
+      "id": "8",
+      "line": 8,
+      "size": 48.46153846153847,
+      "runtimePercent": "6.08",
+      "execCount": "3.85",
+      "color": "rgba(140,147,175,1)"
+    },
+    {
+      "id": "9",
+      "line": 9,
+      "size": 273.73626373626377,
+      "runtimePercent": "26.03",
+      "execCount": "26.37",
+      "color": "rgba(54,52,87,1)"
+    },
+    {
+      "id": "10",
+      "line": 10,
+      "size": 240.76923076923077,
+      "runtimePercent": "20.69",
+      "execCount": "23.08",
+      "color": "rgba(77,77,110,1)"
+    },
+    {
+      "id": "11",
+      "line": 11,
+      "size": 240.76923076923077,
+      "runtimePercent": "23.92",
+      "execCount": "23.08",
+      "color": "rgba(63,62,96,1)"
+    },
+    {
+      "id": "12",
+      "line": 12,
+      "size": 15.494505494505495,
+      "runtimePercent": "0.45",
+      "execCount": "0.55",
+      "color": "rgba(165,173,200,1)"
+    }
+  ],
+  "links": [
+    {
+      "source": "1",
+      "target": "2",
+      "length": 205.4945054945055
+    },
+    {
+      "source": "2",
+      "target": "3",
+      "length": 243.95604395604397
+    },
+    {
+      "source": "3",
+      "target": "3",
+      "length": 128.33104395604397
+    },
+    {
+      "source": "3",
+      "target": "4",
+      "length": 634.5810439560439
+    },
+    {
+      "source": "4",
+      "target": "5",
+      "length": 128.33104395604397
+    },
+    {
+      "source": "5",
+      "target": "4",
+      "length": 243.95604395604397
+    },
+    {
+      "source": "4",
+      "target": "6",
+      "length": 640.0755494505495
+    },
+    {
+      "source": "6",
+      "target": "7",
+      "length": 124.45054945054952
+    },
+    {
+      "source": "7",
+      "target": "6",
+      "length": 249.45054945054943
+    },
+    {
+      "source": "6",
+      "target": "8",
+      "length": 649.4505494505495
+    },
+    {
+      "source": "8",
+      "target": "9",
+      "length": 360.16483516483515
+    },
+    {
+      "source": "9",
+      "target": "10",
+      "length": 348.11126373626377
+    },
+    {
+      "source": "10",
+      "target": "11",
+      "length": 430.7692307692308
+    },
+    {
+      "source": "11",
+      "target": "9",
+      "length": 463.73626373626377
+    },
+    {
+      "source": "9",
+      "target": "8",
+      "length": 854.3612637362637
+    },
+    {
+      "source": "8",
+      "target": "12",
+      "length": 617.032967032967
+    }
+  ]
+}

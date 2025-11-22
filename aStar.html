@@ -172,28 +172,33 @@
   <!-- Left panel showing code -->
   <div id="code-panel">
     <pre>
-    <span id="line-1" class="code-line">grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0]]</span>
-    <span id="line-2" class="code-line">seen = set()</span>
-    <span id="line-3" class="code-line">ROW = len(grid)</span>
-    <span id="line-4" class="code-line">COL = len(grid[0])</span>
-    <span id="line-5" class="code-line">def dfs(r, c):</span>
-    <span id="line-6" class="code-line">    if r < 0 or r >= ROW or c < 0 or c >= COL:</span>
-    <span id="line-7" class="code-line">        return 0</span>
-    <span id="line-8" class="code-line">    if grid[r][c] == 0:</span>
-    <span id="line-9" class="code-line">        return 0</span>
-    <span id="line-10" class="code-line">   if (r,c) in seen:</span>
-    <span id="line-11" class="code-line">       return 0</span>
-    <span id="line-12" class="code-line">   seen.add((r,c))</span>
-    <span id="line-13" class="code-line">   up = dfs(r-1, c)</span>
-    <span id="line-14" class="code-line">   down = dfs(r+1, c)</span>
-    <span id="line-15" class="code-line">   left = dfs(r, c-1)</span>
-    <span id="line-16" class="code-line">   right = dfs(r, c+1)</span>
-    <span id="line-17" class="code-line">   return up + down + left + right + 1</span>
-    <span id="line-18" class="code-line">res = 0</span>
-    <span id="line-19" class="code-line">for r in range(ROW):</span>
-    <span id="line-20" class="code-line">   for c in range(COL):</span>
-    <span id="line-21" class="code-line">       res = max(res, dfs(r,c))</span>
-    <span id="line-22" class="code-line">return res</span>
+    <span id="line-1" class="code-line">def a(s,goal):</span>
+    <span id="line-2" class="code-line">    pq=[(h[s],0,s)]</span>
+    <span id="line-3" class="code-line">    seen=set()</span>
+    <span id="line-4" class="code-line">    parent={s:None}</span>
+    <span id="line-5" class="code-line">    cost={s:0}</span>
+    <span id="line-6" class="code-line">    while pq:</span>
+    <span id="line-7" class="code-line">        f,gc,x=heapq.heappop(pq)</span>
+    <span id="line-8" class="code-line">        if x in seen:</span>
+    <span id="line-9" class="code-line">            continue</span>
+    <span id="line-10" class="code-line">        seen.add(x)</span>
+    <span id="line-11" class="code-line">        if x==goal:</span>
+    <span id="line-12" class="code-line">            break</span>
+    <span id="line-13" class="code-line">        for y,w in g[x]:</span>
+    <span id="line-14" class="code-line">            ng=gc+w</span>
+    <span id="line-15" class="code-line">            if y not in cost or ng&lt;cost[y]:</span>
+    <span id="line-16" class="code-line">                cost[y]=ng</span>
+    <span id="line-17" class="code-line">                parent[y]=x</span>
+    <span id="line-18" class="code-line">                heapq.heappush(pq,(ng+h[y],ng,y))</span>
+    <span id="line-19" class="code-line">    p=[]</span>
+    <span id="line-20" class="code-line">    u=goal</span>
+    <span id="line-21" class="code-line">    while u is not None:</span>
+    <span id="line-22" class="code-line">        p.append(u)</span>
+    <span id="line-23" class="code-line">        u=parent[u]</span>
+    <span id="line-24" class="code-line">    return p[::-1]</span>
+    <span id="line-25" class="code-line"></span>
+    <span id="line-26" class="code-line">a("A","L")</span>
+
     </pre>
   </div>
 
@@ -212,8 +217,8 @@ function closeHelp() {
 }
 
     // Example nodes (each maps to a line number)
-      <!-- fetch("graph_data.json") -->
-    fetch("graph_data.json?v=" + Date.now())
+      <!-- fetch("aStar_data.json") -->
+    fetch("aStar_data.json?v=" + Date.now())
   .then(response => response.json())
   .then(data => {
       const nodes = data.nodes;
@@ -281,7 +286,7 @@ groups.forEach((nodesOfSize, size) => {
   const c = clusterCenters.get(size);
   nodesOfSize.forEach(n => {
     n.x = c.x + (Math.random() - 0.5) * 40;  // small jitter
-    n.y = c.y + (Math.random() - 0.5) * 40;
+    n.y = 0
   });
 });
 

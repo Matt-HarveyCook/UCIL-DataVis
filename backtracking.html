@@ -172,28 +172,18 @@
   <!-- Left panel showing code -->
   <div id="code-panel">
     <pre>
-    <span id="line-1" class="code-line">grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0]]</span>
-    <span id="line-2" class="code-line">seen = set()</span>
-    <span id="line-3" class="code-line">ROW = len(grid)</span>
-    <span id="line-4" class="code-line">COL = len(grid[0])</span>
-    <span id="line-5" class="code-line">def dfs(r, c):</span>
-    <span id="line-6" class="code-line">    if r < 0 or r >= ROW or c < 0 or c >= COL:</span>
-    <span id="line-7" class="code-line">        return 0</span>
-    <span id="line-8" class="code-line">    if grid[r][c] == 0:</span>
-    <span id="line-9" class="code-line">        return 0</span>
-    <span id="line-10" class="code-line">   if (r,c) in seen:</span>
-    <span id="line-11" class="code-line">       return 0</span>
-    <span id="line-12" class="code-line">   seen.add((r,c))</span>
-    <span id="line-13" class="code-line">   up = dfs(r-1, c)</span>
-    <span id="line-14" class="code-line">   down = dfs(r+1, c)</span>
-    <span id="line-15" class="code-line">   left = dfs(r, c-1)</span>
-    <span id="line-16" class="code-line">   right = dfs(r, c+1)</span>
-    <span id="line-17" class="code-line">   return up + down + left + right + 1</span>
-    <span id="line-18" class="code-line">res = 0</span>
-    <span id="line-19" class="code-line">for r in range(ROW):</span>
-    <span id="line-20" class="code-line">   for c in range(COL):</span>
-    <span id="line-21" class="code-line">       res = max(res, dfs(r,c))</span>
-    <span id="line-22" class="code-line">return res</span>
+    <span id="line-1" class="code-line">res = []</span>
+    <span id="line-2" class="code-line">def bt(a, i, cur):</span>
+    <span id="line-3" class="code-line">    if i == len(a):</span>
+    <span id="line-4" class="code-line">        res.append(cur[:])</span>
+    <span id="line-5" class="code-line">        return</span>
+    <span id="line-6" class="code-line">    bt(a, i+1, cur)</span>
+    <span id="line-7" class="code-line">    cur.append(a[i])</span>
+    <span id="line-8" class="code-line">    bt(a, i+1, cur)</span>
+    <span id="line-9" class="code-line">    cur.pop()</span>
+    <span id="line-10" class="code-line"></span>
+    <span id="line-11" class="code-line">bt([1,2,3], 0, [])</span>
+
     </pre>
   </div>
 
@@ -212,8 +202,8 @@ function closeHelp() {
 }
 
     // Example nodes (each maps to a line number)
-      <!-- fetch("graph_data.json") -->
-    fetch("graph_data.json?v=" + Date.now())
+      <!-- fetch("mergeSort_data.json") -->
+    fetch("mergeSort_data.json?v=" + Date.now())
   .then(response => response.json())
   .then(data => {
       const nodes = data.nodes;

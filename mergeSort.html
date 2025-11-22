@@ -172,28 +172,24 @@
   <!-- Left panel showing code -->
   <div id="code-panel">
     <pre>
-    <span id="line-1" class="code-line">grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0]]</span>
-    <span id="line-2" class="code-line">seen = set()</span>
-    <span id="line-3" class="code-line">ROW = len(grid)</span>
-    <span id="line-4" class="code-line">COL = len(grid[0])</span>
-    <span id="line-5" class="code-line">def dfs(r, c):</span>
-    <span id="line-6" class="code-line">    if r < 0 or r >= ROW or c < 0 or c >= COL:</span>
-    <span id="line-7" class="code-line">        return 0</span>
-    <span id="line-8" class="code-line">    if grid[r][c] == 0:</span>
-    <span id="line-9" class="code-line">        return 0</span>
-    <span id="line-10" class="code-line">   if (r,c) in seen:</span>
-    <span id="line-11" class="code-line">       return 0</span>
-    <span id="line-12" class="code-line">   seen.add((r,c))</span>
-    <span id="line-13" class="code-line">   up = dfs(r-1, c)</span>
-    <span id="line-14" class="code-line">   down = dfs(r+1, c)</span>
-    <span id="line-15" class="code-line">   left = dfs(r, c-1)</span>
-    <span id="line-16" class="code-line">   right = dfs(r, c+1)</span>
-    <span id="line-17" class="code-line">   return up + down + left + right + 1</span>
-    <span id="line-18" class="code-line">res = 0</span>
-    <span id="line-19" class="code-line">for r in range(ROW):</span>
-    <span id="line-20" class="code-line">   for c in range(COL):</span>
-    <span id="line-21" class="code-line">       res = max(res, dfs(r,c))</span>
-    <span id="line-22" class="code-line">return res</span>
+    <span id="line-1" class="code-line">def ms(a):</span>
+    <span id="line-2" class="code-line">    if len(a)<=1:</span>
+    <span id="line-3" class="code-line">        return a</span>
+    <span id="line-4" class="code-line">    m = len(a)//2</span>
+    <span id="line-5" class="code-line">    l = ms(a[:m])</span>
+    <span id="line-6" class="code-line">    r = ms(a[m:])</span>
+    <span id="line-7" class="code-line">    i=j=0</span>
+    <span id="line-8" class="code-line">    o=[]</span>
+    <span id="line-9" class="code-line">    while i&lt;len(l) and j&lt;len(r):</span>
+    <span id="line-10" class="code-line">        if l[i]&lt;r[j]:</span>
+    <span id="line-11" class="code-line">            o.append(l[i]); i+=1</span>
+    <span id="line-12" class="code-line">        else:</span>
+    <span id="line-13" class="code-line">            o.append(r[j]); j+=1</span>
+    <span id="line-14" class="code-line">    o+=l[i:]; o+=r[j:]</span>
+    <span id="line-15" class="code-line">    return o</span>
+    <span id="line-16" class="code-line"></span>
+    <span id="line-17" class="code-line">ms([5,2,7,1,4])</span>
+
     </pre>
   </div>
 
@@ -212,8 +208,8 @@ function closeHelp() {
 }
 
     // Example nodes (each maps to a line number)
-      <!-- fetch("graph_data.json") -->
-    fetch("graph_data.json?v=" + Date.now())
+      <!-- fetch("mergeSort_data.json") -->
+    fetch("mergeSort_data.json?v=" + Date.now())
   .then(response => response.json())
   .then(data => {
       const nodes = data.nodes;

@@ -1,404 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>D3 Graph + Code Highlight</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      display: flex;
-      height: 100vh;
-    }
+<meta charset="UTF-8">
+<title>Graph Algorithm Visualisations</title>
 
-    /* Left code panel */
-    #code-panel {
-      width: 35%;
-      background: #1e1e2c;
-      color: #ddd;
-      padding: 20px;
-      overflow-y: auto;
-      font-family: monospace;
-      font-size: 1vw;
-      border-right: 2px solid #333;
-    }
-    .node-highlight {
-  stroke: #FFEF00;
-  stroke-width: 40;
-}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 
+<style>
+  body {
+    margin: 0;
+    background: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    color: #222;
+  }
 
-    .code-line {
-      padding: 3px 6px;
-      border-radius: 4px;
-    }
+  /* Header band */
+  header {
+    background: #1e1e2c;
+    color: #fff;
+    padding: 32px 0;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
 
-    .highlight {
-      background: #FFEF00;
-      color: black;
-    }
+  /* Gallery layout */
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 55px;
+    max-width: 1500px;
+    margin: 60px auto;
+    padding: 0 40px;
+  }
 
-    /* Right graph panel */
-    #graph {
-      flex: 1;
-    }
+  /* Card container */
+  .card {
+    background: #ffffff;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    cursor: pointer;
+  }
 
-    line {
-      stroke: #999;
-      stroke-opacity: 0.6;
-    }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  }
 
-    circle {
-      stroke: #fff;
-      stroke-width: 1.5px;
-    }
+  /* Large thumbnails with no cropping */
+  .card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: none;
+  }
 
-    .tooltip {
-      position: absolute;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      padding: 6px 10px;
-      border-radius: 4px;
-      pointer-events: none;
-      font-size: 22px;
-      opacity: 0;
-      transition: opacity 0.2s;
+  /* Title styles */
+  .card-title {
+    margin-top: 14px;
+    font-size: 1.1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #444;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  /* Subtle subtitle */
+  .card-subtitle {
+    font-size: 0.85rem;
+    margin-top: 4px;
+    color: #888; /* subtle grey */
+    font-weight: 300;
+    text-align: left;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (max-width: 900px) {
+    .gallery {
+      grid-template-columns: 1fr;
     }
-  </style>
+  }
+</style>
 </head>
 
 <body>
 
-  <!-- Left panel showing code -->
-  <div id="code-panel">
-    <pre>
-    <span id="line-1" class="code-line">grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0]]</span>
-    <span id="line-2" class="code-line">seen = set()</span>
-    <span id="line-3" class="code-line">ROW = len(grid)</span>
-    <span id="line-4" class="code-line">COL = len(grid[0])</span>
-    <span id="line-5" class="code-line">def dfs(r, c):</span>
-    <span id="line-6" class="code-line">    if r < 0 or r >= ROW or c < 0 or c >= COL:</span>
-    <span id="line-7" class="code-line">        return 0</span>
-    <span id="line-8" class="code-line">    if grid[r][c] == 0:</span>
-    <span id="line-9" class="code-line">        return 0</span>
-    <span id="line-10" class="code-line">   if (r,c) in seen:</span>
-    <span id="line-11" class="code-line">       return 0</span>
-    <span id="line-12" class="code-line">   seen.add((r,c))</span>
-    <span id="line-13" class="code-line">   up = dfs(r-1, c)</span>
-    <span id="line-14" class="code-line">   down = dfs(r+1, c)</span>
-    <span id="line-15" class="code-line">   left = dfs(r, c-1)</span>
-    <span id="line-16" class="code-line">   right = dfs(r, c+1)</span>
-    <span id="line-17" class="code-line">   return up + down + left + right + 1</span>
-    <span id="line-18" class="code-line">res = 0</span>
-    <span id="line-19" class="code-line">for r in range(ROW):</span>
-    <span id="line-20" class="code-line">   for c in range(COL):</span>
-    <span id="line-21" class="code-line">       res = max(res, dfs(r,c))</span>
-    <span id="line-22" class="code-line">return res</span>
-    </pre>
-  </div>
+<header>GRAPH ALGORITHM VISUALISATIONS</header>
 
-  <!-- Graph area -->
-  <div id="graph"></div>
+<div class="gallery">
 
-  <div id="tooltip" class="tooltip"></div>
+  <a href="basicPage.html">
+    <div class="card">
+      <img src="thumbnails/basic.png" alt="DFS Graph Thumbnail">
+      <div class="card-title">DEPTH-FIRST SEARCH</div>
+      <div class="card-subtitle">DFS</div>
+    </div>
+  </a>
 
-  <script>
-    // Example nodes (each maps to a line number)
-      <!-- fetch("graph_data.json") -->
-    fetch("graph_data.json?v=" + Date.now())
-  .then(response => response.json())
-  .then(data => {
-      const nodes = data.nodes;
-      const links = data.links;
+  <a href="bfs.html">
+    <div class="card">
+      <img src="thumbnails/basic.png" alt="BFS Graph Thumbnail">
+      <div class="card-title">BREADTH-FIRST SEARCH</div>
+      <div class="card-subtitle">BFS</div>
+    </div>
+  </a>
 
-      buildGraph(nodes, links);
-  });
+  <a href="dijkstra.html">
+    <div class="card">
+      <img src="thumbnails/basic.png" alt="Dijkstra Graph Thumbnail">
+      <div class="card-title">DIJKSTRA'S SHORTEST PATH</div>
+      <div class="card-subtitle">SHORTEST-PATH</div>
+    </div>
+  </a>
 
-    const width = window.innerWidth * 0.65;
-    const height = window.innerHeight;
+  <a href="astar.html">
+    <div class="card">
+      <img src="thumbnails/basic.png" alt="A* Graph Thumbnail">
+      <div class="card-title">A* SEARCH</div>
+      <div class="card-subtitle">A STAR</div>
+    </div>
+  </a>
 
-    const svg = d3.select("#graph")
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height);
-    
-    const container = svg.append("g");
-    const zoom = d3.zoom()
-  .scaleExtent([0.1, 4])   // min/max zoom
-  .on("zoom", (event) => {
-    container.attr("transform", event.transform);
-  });
+  <a href="kruskal.html">
+    <div class="card">
+      <img src="thumbnails/basic.png" alt="Kruskal Graph Thumbnail">
+      <div class="card-title">KRUSKAL MINIMUM SPANNING TREE</div>
+      <div class="card-subtitle">MST</div>
+    </div>
+  </a>
 
-svg.call(zoom);
+  <a href="prim.html">
+    <div class="card">
+      <img src="thumbnails/prim.png" alt="Prim Graph Thumbnail">
+      <div class="card-title">PRIM MINIMUM SPANNING TREE</div>
+      <div class="card-subtitle">MST</div>
+    </div>
+  </a>
 
-
-    svg.append("defs").append("marker")
-    .attr("id", "arrow")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 50)       // adjust depending on node radius
-    .attr("refY", 0)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("orient", "auto")
-    .append("path")
-    .attr("d", "M0,-5L10,0L0,5")
-    .attr("fill", "#999");
-
-
-    const tooltip = d3.select("#tooltip");
-function buildGraph(nodes, links) {
-
-    // 1. Group nodes by size
-const groups = d3.group(nodes, d => d.size);
-
-// 2. Precompute cluster centers based on sorted unique sizes
-const uniqueSizes = Array.from(groups.keys()).sort((a,b) => a - b);
-const clusterCenters = new Map();
-
-const clusterSpacing = 180;     // distance between groups
-const centerX = width / 2;
-const centerY = height / 2;
-
-// Place clusters horizontally
-uniqueSizes.forEach((size, i) => {
-  const x = centerX + (i - uniqueSizes.length / 2) * clusterSpacing;
-
-  const y = centerY + (i - uniqueSizes.length / 2) * clusterSpacing;
-  <!-- const y = centerY; -->
-  clusterCenters.set(size, { x, y });
-});
-
-// 3. Assign each node an initial position near its cluster center  
-groups.forEach((nodesOfSize, size) => {
-  const c = clusterCenters.get(size);
-  nodesOfSize.forEach(n => {
-    n.x = c.x + (Math.random() - 0.5) * 40;  // small jitter
-    n.y = c.y + (Math.random() - 0.5) * 40;
-  });
-});
-
-    const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links)
-            .id(d => d.id)
-            .distance(d => d.length)
-        )
-        .force("charge", d3.forceManyBody().strength(-200))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collision", d3.forceCollide().radius(d => d.size + 4)); // ← add this
-    
-    const adjacency = new Map();
-    nodes.forEach(n => adjacency.set(n.id, new Set()));
-    links.forEach(l => {
-      adjacency.get(l.source.id).add(l.target.id);
-      adjacency.get(l.target.id).add(l.source.id);
-    });
-
-
-
-
-    const link = container.selectAll("line")
-        .data(links)
-        .enter().append("line");
-    
-    const arrows = container.selectAll(".arrow")
-      .data(links)
-      .enter()
-      .append("path")
-      .attr("class", "arrow")
-      .attr("fill", "#999");
-
-
-    const node = container.selectAll("circle")
-      .data(nodes)
-      .enter().append("circle")
-      .attr("r", d => d.size)
-      .attr("fill", d => d.color)
-    .on("mouseout", () => {
-        tooltip.style("opacity", 0);
-        d3.selectAll(".code-line").classed("highlight", false);
-
-        // Restore full opacity
-        node.style("opacity", 1);
-        link.style("opacity", 1);
-    })
-
-    .on("mouseover", (event, d) => {
-        tooltip
-            .style("opacity", 1)
-            .html(`<strong>Runtime(%):</strong> ${d.runtimePercent}<br><strong>Line:</strong> ${d.line}`);
-
-        // Highlight code
-        d3.selectAll(".code-line").classed("highlight", false);
-        d3.select("#line-" + d.line).classed("highlight", true);
-
-        // Dim unrelated nodes
-        const neighbors = adjacency.get(d.id);
-        node.style("opacity", n =>
-            (n.id === d.id || neighbors.has(n.id)) ? 1 : 0.15
-        );
-
-        link.style("opacity", l =>
-            (l.source.id === d.id || l.target.id === d.id) ? 1 : 0.1
-        );
-    })
-.on("mousemove", (event, d) => {
-    // Convert graph coordinates to SVG screen coordinates
-    const pt = svg.node().createSVGPoint();
-    pt.x = d.x;
-    pt.y = d.y;
-
-    const screen = pt.matrixTransform(container.node().getCTM());
-
-    // Get bounding box of the graph DIV relative to the page
-    const graphRect = document
-        .getElementById("graph")
-        .getBoundingClientRect();
-
-    tooltip.style("left", (graphRect.left + screen.x + 15) + "px")
-           .style("top",  (graphRect.top  + screen.y + 15) + "px");
-})
-      .call(d3.drag()
-        .on("start", dragstart)
-        .on("drag", dragdrag)
-        .on("end", dragend)
-      );
-
-    function autoZoomToFit() {
-  // Compute bounds of all nodes
-  const minX = d3.min(nodes, d => d.x);
-  const maxX = d3.max(nodes, d => d.x);
-  const minY = d3.min(nodes, d => d.y);
-  const maxY = d3.max(nodes, d => d.y);
-
-  const nodeWidth = maxX - minX;
-  const nodeHeight = maxY - minY;
-
-  // Padding around nodes
-  const padding = 400;
-
-  // Compute required scale
-  const scale = Math.min(
-    (width - padding) / nodeWidth,
-    (height - padding) / nodeHeight,
-    1.2                       // do not zoom in more than normal
-  );
-
-  // Compute center offset
-  const translateX = width / 2 - (minX + nodeWidth / 2) * scale;
-  const translateY = height / 2 - (minY + nodeHeight / 2) * scale;
-
-  // Smooth animation
-  svg.transition()
-    .duration(3000)
-    .call(
-      zoom.transform,
-      d3.zoomIdentity.translate(translateX, translateY).scale(scale)
-    );
-}
-setTimeout(() => autoZoomToFit(), 50);
-
-    // Map line number → node DOM element
-const lineToNode = new Map();
-node.each(function(d) {
-  lineToNode.set(d.line, d3.select(this));
-});
-
-    // Add hover → highlight node for each code line
-d3.selectAll(".code-line")
-  .on("mouseover", function(event) {
-      const lineNum = +this.id.replace("line-", "");
-      const n = lineToNode.get(lineNum);
-      if (n) {
-        n.classed("node-highlight", true);
-      }
-  })
-  .on("mouseout", function(event) {
-      const lineNum = +this.id.replace("line-", "");
-      const n = lineToNode.get(lineNum);
-      if (n) {
-        n.classed("node-highlight", false);
-      }
-  });
-
-
-
-
-    simulation.on("tick", () => {
-      link
-        .attr("x1", d => d.source.x)
-        .attr("y1", d => d.source.y)
-        .attr("x2", d => d.target.x)
-        .attr("y2", d => d.target.y);
-
-      node
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y);
-          arrows.attr("d", d => {
-
-    const src = d.source;
-    const tgt = d.target;
-
-    // Vector from src → tgt
-    const dx = tgt.x - src.x;
-    const dy = tgt.y - src.y;
-    const len = Math.sqrt(dx*dx + dy*dy);
-
-    // Normalize
-    const ux = dx / len;
-    const uy = dy / len;
-
-    // Pull arrowhead back so its tip sits exactly at the target circle edge
-    // (target.radius = target.size)
-    const arrowTipX = tgt.x - ux * tgt.size;
-    const arrowTipY = tgt.y - uy * tgt.size;
-
-    // Arrowhead size (constant visually)
-    const aw = 5; // width
-    const ah = 8; // length
-
-    // Base of arrow
-    const baseX = arrowTipX - ux * ah;
-    const baseY = arrowTipY - uy * ah;
-
-    // Perpendicular vector
-    const px = -uy;
-    const py = ux;
-
-    // Triangle corners
-    const leftX = baseX + px * aw/2;
-    const leftY = baseY + py * aw/2;
-
-    const rightX = baseX - px * aw/2;
-    const rightY = baseY - py * aw/2;
-
-    return `
-      M ${arrowTipX} ${arrowTipY}
-      L ${leftX} ${leftY}
-      L ${rightX} ${rightY}
-      Z
-    `;
-  });
-    });
-
-    function dragstart(event, d) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-
-    function dragdrag(event, d) {
-      d.fx = event.x;
-      d.fy = event.y;
-    }
-
-    function dragend(event, d) {
-      if (!event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
-}
-  </script>
+</div>
 
 </body>
 </html>

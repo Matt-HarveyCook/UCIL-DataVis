@@ -5,27 +5,31 @@
       "line": 1,
       "size": 10.968992248062015,
       "runtimePercent": "0.00",
+      "execCount": "0.10",
       "color": "rgba(167,176,202,1)"
     },
     {
       "id": "2",
       "line": 2,
       "size": 10.968992248062015,
-      "runtimePercent": "0.46",
+      "runtimePercent": "0.48",
+      "execCount": "0.10",
       "color": "rgba(164,173,199,1)"
     },
     {
       "id": "3",
       "line": 3,
       "size": 10.968992248062015,
-      "runtimePercent": "0.23",
+      "runtimePercent": "0.22",
+      "execCount": "0.10",
       "color": "rgba(165,174,200,1)"
     },
     {
       "id": "4",
       "line": 4,
       "size": 10.968992248062015,
-      "runtimePercent": "0.14",
+      "runtimePercent": "0.12",
+      "execCount": "0.10",
       "color": "rgba(166,175,201,1)"
     },
     {
@@ -33,125 +37,143 @@
       "line": 5,
       "size": 10.968992248062015,
       "runtimePercent": "0.11",
+      "execCount": "0.10",
       "color": "rgba(166,175,201,1)"
     },
     {
       "id": "18",
       "line": 18,
       "size": 10.968992248062015,
-      "runtimePercent": "0.12",
+      "runtimePercent": "0.11",
+      "execCount": "0.10",
       "color": "rgba(166,175,201,1)"
     },
     {
       "id": "19",
       "line": 19,
       "size": 18.72093023255814,
-      "runtimePercent": "0.73",
+      "runtimePercent": "0.70",
+      "execCount": "0.87",
       "color": "rgba(163,172,198,1)"
     },
     {
       "id": "20",
       "line": 20,
       "size": 118.52713178294573,
-      "runtimePercent": "11.86",
-      "color": "rgba(110,113,144,1)"
+      "runtimePercent": "11.52",
+      "execCount": "10.85",
+      "color": "rgba(109,113,143,1)"
     },
     {
       "id": "21",
       "line": 21,
       "size": 110.7751937984496,
-      "runtimePercent": "9.18",
-      "color": "rgba(123,127,157,1)"
+      "runtimePercent": "8.33",
+      "execCount": "10.08",
+      "color": "rgba(125,130,159,1)"
     },
     {
       "id": "6",
       "line": 6,
       "size": 207.67441860465115,
-      "runtimePercent": "23.62",
+      "runtimePercent": "22.81",
+      "execCount": "19.77",
       "color": "rgba(54,52,87,1)"
     },
     {
       "id": "8",
       "line": 8,
       "size": 203.79844961240312,
-      "runtimePercent": "18.52",
-      "color": "rgba(78,78,111,1)"
+      "runtimePercent": "17.82",
+      "execCount": "19.38",
+      "color": "rgba(78,79,112,1)"
     },
     {
       "id": "9",
       "line": 9,
       "size": 138.87596899224806,
-      "runtimePercent": "10.81",
-      "color": "rgba(115,119,149,1)"
+      "runtimePercent": "12.65",
+      "execCount": "12.89",
+      "color": "rgba(104,107,138,1)"
     },
     {
       "id": "10",
       "line": 10,
       "size": 74.92248062015504,
-      "runtimePercent": "5.48",
-      "color": "rgba(140,147,175,1)"
+      "runtimePercent": "5.89",
+      "execCount": "6.49",
+      "color": "rgba(137,143,172,1)"
     },
     {
       "id": "12",
       "line": 12,
       "size": 34.22480620155039,
-      "runtimePercent": "2.14",
-      "color": "rgba(156,164,191,1)"
+      "runtimePercent": "2.84",
+      "execCount": "2.42",
+      "color": "rgba(152,160,187,1)"
     },
     {
       "id": "13",
       "line": 13,
       "size": 34.22480620155039,
-      "runtimePercent": "2.14",
-      "color": "rgba(156,164,191,1)"
+      "runtimePercent": "2.19",
+      "execCount": "2.42",
+      "color": "rgba(156,164,190,1)"
     },
     {
       "id": "7",
       "line": 7,
       "size": 13.875968992248062,
       "runtimePercent": "0.32",
+      "execCount": "0.39",
       "color": "rgba(165,174,200,1)"
     },
     {
       "id": "14",
       "line": 14,
       "size": 34.22480620155039,
-      "runtimePercent": "2.69",
-      "color": "rgba(154,161,188,1)"
+      "runtimePercent": "2.85",
+      "execCount": "2.42",
+      "color": "rgba(152,160,187,1)"
     },
     {
       "id": "15",
       "line": 15,
       "size": 34.22480620155039,
-      "runtimePercent": "2.51",
-      "color": "rgba(154,162,189,1)"
+      "runtimePercent": "2.39",
+      "execCount": "2.42",
+      "color": "rgba(155,162,189,1)"
     },
     {
       "id": "16",
       "line": 16,
       "size": 34.22480620155039,
-      "runtimePercent": "2.16",
+      "runtimePercent": "2.08",
+      "execCount": "2.42",
       "color": "rgba(156,164,191,1)"
     },
     {
       "id": "17",
       "line": 17,
       "size": 34.22480620155039,
-      "runtimePercent": "2.91",
-      "color": "rgba(153,160,187,1)"
+      "runtimePercent": "2.77",
+      "execCount": "2.42",
+      "color": "rgba(153,160,188,1)"
     },
     {
       "id": "11",
       "line": 11,
       "size": 50.697674418604656,
-      "runtimePercent": "3.78",
-      "color": "rgba(148,156,183,1)"
+      "runtimePercent": "3.72",
+      "execCount": "4.07",
+      "color": "rgba(148,155,183,1)"
     },
     {
       "id": "22",
       "line": 22,
       "size": 10.968992248062015,
       "runtimePercent": "0.08",
+      "execCount": "0.10",
       "color": "rgba(166,175,201,1)"
     }
   ],
